@@ -61,11 +61,11 @@ const products = [
 </script>
 
 <template>
-  <div class="grid grid-cols-2 min-h-screen p-24 bg-[#B2C0B0]/10">
+  <div class="grid grid-cols-2 min-h-screen p-24 bg-[#C0A28A]/10">
 
     <div class="flex flex-col justify-center items-center">
-      <h1 class="text-4xl text-center font-bold">Meilleure collection</h1>
-      <p class="max-w-md text-center mb-8">Perruques synthétiques, mélangées et pré-bouclées de style naturel et perruques douces au toucher</p>
+      <h1 class="text-4xl text-center font-bold mb-5">Meilleure collection</h1>
+      <p class="max-w-md text-lg font-normal text-center mb-8">Perruques synthétiques, mélangées et pré-bouclées de style naturel et perruques douces au toucher</p>
       <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-5 pr-16">
         <div v-for="product in products" :key="product.id" class="group relative">
           <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-[#B2C0B0] lg:aspect-none group-hover:opacity-75 lg:h-80">
@@ -85,7 +85,6 @@ const products = [
         </div>
       </div>
     </div>
-
     <div>
       <img :src="aboutImage3" alt="" class="h-full w-full object-cover object-center">
     </div>

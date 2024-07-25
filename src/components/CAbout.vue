@@ -9,7 +9,7 @@ import aboutImage2 from "@/assets/images/abouts/about2.webp";
 
     <div class="w-2/5 p-24">
       <div class="mb-8 pr-20">
-        <h1 class="text-xl text-[#6C7A6A]">C'est ici</h1>
+        <h1 class="text-xl text-[#D1B096] italic font-medium">C'est ici</h1>
         <h2 class="text-4xl max-w-xl font-bold uppercase">Bienvenue au salon de coiffure Miroir de Style</h2>
       </div>
       <div>
@@ -24,7 +24,7 @@ import aboutImage2 from "@/assets/images/abouts/about2.webp";
         </p>
       </div>
       <div class="my-10">
-        <RouterLink to="#" class="text-xl font-semibold bg-[#B2C0B0] text-white px-7 py-4 rounded-md">
+        <RouterLink to="#" class="bg-[#d1b096] text-xl px-10 py-5 rounded-sm uppercase font-semibold hover:bg-black hover:text-white">
           A propos de nous
         </RouterLink>
       </div>
