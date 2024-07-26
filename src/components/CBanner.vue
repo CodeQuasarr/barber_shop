@@ -5,7 +5,7 @@
 <template>
   <div class="w-full h-[650px] bg-bottom bg-cover bg-[url('@/assets/images/backgrounds/wallpaper_3.webp')] relative">
     <div class="absolute h-full w-full bg-black/30"/>
-    <div class="z-50 relative w-full h-full flex flex-col gap-10 justify-center items-center xl:items-start">
+    <div class="z-30 relative w-full h-full flex flex-col gap-10 justify-center items-center xl:items-start">
       <h1 class="w-full text-4xl text-center text-white font-bold uppercase">
         LIBÉREZ VOTRE VÉRITABLE POTENTIEL GLAMOUR
       </h1>

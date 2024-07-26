@@ -1,8 +1,20 @@
 <script setup lang="ts">
+import CBanner from "@/components/CBanner.vue";
+import CAboutClient from "@/components/CAboutClient.vue";
+import CCollection from "@/components/CCollection.vue";
+import CAbout from "@/components/CAbout.vue";
 </script>
 
 <template>
-  <main>
-    <h1 class="text-7xl text-indigo-600"> Yo my bro! </h1>
-  </main>
+  <div>
+      <CBanner/>
+
+      <CAbout/>
+
+      <!--    <CSelection />-->
+
+      <CCollection/>
+
+      <CAboutClient/>
+  </div>
 </template>

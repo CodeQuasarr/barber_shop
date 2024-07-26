@@ -5,10 +5,9 @@ import aboutImage2 from "@/assets/images/abouts/about2.webp";
 </script>
 
 <template>
-  <div class="flex items-center justify-center min-h-screen">
-
-    <div class="w-2/5 p-24">
-      <div class="mb-8 pr-20">
+  <div class="py-24 flex flex-wrap items-center justify-center min-h-screen">
+    <div class="order-2 xl:order-none w-full xl:w-2/5 p-5 xl:p-24">
+      <div class="mb-8 pr-0 xl:pr-20">
         <h1 class="text-xl text-[#D1B096] italic font-medium">C'est ici</h1>
         <h2 class="text-4xl max-w-xl font-bold uppercase">Bienvenue au salon de coiffure Miroir de Style</h2>
       </div>
@@ -30,9 +29,9 @@ import aboutImage2 from "@/assets/images/abouts/about2.webp";
       </div>
     </div>
 
-    <div class="w-3/5 grid grid-cols-2 p-24 gap-12">
+    <div class="order-1 xl:order-none w-full xl:w-3/5 grid grid-cols-1 xl:grid-cols-2 p-5 xl:p-24 gap-12">
       <div ><img :src="aboutImage1" alt=""></div>
-      <div><img :src="aboutImage2" alt=""></div>
+      <div class="hidden xl:block"><img :src="aboutImage2" alt=""></div>
     </div>
   </div>
 </template>

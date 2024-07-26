@@ -29,10 +29,11 @@ const setCurrentIndex = (index: number) => {
 </script>
 
 <template>
-  <div class="w-4/6 mx-auto min-h-[700px] flex justify-center items-center">
+  <div class="w-full xl:w-4/6 mx-auto min-h-[700px] flex justify-center items-center py-24 px-5 xl:px-24">
     <div>
-      <div class="grid grid-cols-2 items-center justify-center">
-        <div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 items-center justify-center">
+        <div class="order-2 xl:order-none ">
           <h1 class="text-xl text-[#D1B096] italic font-medium">Avis des clients</h1>
           <h2 class="text-4xl max-w-xl font-bold uppercase mb-16">Ce que disent nos clients</h2>
           <div v-for="(client, index) in clientsSays" :key="client.id" v-show="index === currentIndex" class="flex flex-col">
@@ -41,11 +42,12 @@ const setCurrentIndex = (index: number) => {
           </div>
         </div>
 
-        <div class="ms-auto">
+        <div class="ms-auto order-1 xl:order-none mb-10">
           <img :src="aboutImage4" alt="">
         </div>
       </div>
-      <div class="flex space-x-2 mt-4 items-center justify-center">
+
+        <div class="flex space-x-2 mt-4 items-center justify-center">
       <span v-for="(client, index) in clientsSays" :key="client.id"
             @click="setCurrentIndex(index)"
             class="cursor-pointer w-10 h-1 "
