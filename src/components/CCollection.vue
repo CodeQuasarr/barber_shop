@@ -9,7 +9,7 @@ const products = [
     description: 'Work from home accessories',
     imageSrc: images['/src/assets/images/shops/shop-1.webp'],
     imageAlt: 'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
-    href: '#',
+    href: '/products/1',
     price: 350 + ' €',
   },
   {
@@ -18,7 +18,7 @@ const products = [
     description: 'Journals and note-taking',
     imageSrc: images['/src/assets/images/shops/shop-2.webp'],
     imageAlt: 'Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.',
-    href: '#',
+    href: '/products/2',
     price: 300 + ' €',
   },
   {
@@ -27,7 +27,7 @@ const products = [
     description: 'Daily commute essentials',
     imageSrc: images['/src/assets/images/shops/shop-3.webp'],
     imageAlt: 'Collection of four insulated travel bottles on wooden shelf.',
-    href: '#',
+    href: '/products/3',
     price: 290 + ' €',
   },
   {
@@ -36,7 +36,7 @@ const products = [
     description: 'Work from home accessories',
     imageSrc: images['/src/assets/images/shops/shop-4.webp'],
     imageAlt: 'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
-    href: '#',
+    href: '/products/4',
     price: 240 + ' €',
   },
   {
@@ -45,7 +45,7 @@ const products = [
     description: 'Journals and note-taking',
     imageSrc: images['/src/assets/images/shops/shop-5.webp'],
     imageAlt: 'Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.',
-    href: '#',
+    href: '/products/5',
     price: 340 + ' €',
   },
   {
@@ -54,7 +54,7 @@ const products = [
     description: 'Daily commute essentials',
     imageSrc: images['/src/assets/images/shops/shop-5.webp'],
     imageAlt: 'Collection of four insulated travel bottles on wooden shelf.',
-    href: '#',
+    href: '/products/6',
     price: 260 + ' €',
   },
 ]
@@ -74,10 +74,10 @@ const products = [
           <div class="mt-4 flex justify-between">
             <div>
               <h3 class="text-sm text-gray-700">
-                <a :href="product.href">
+                <RouterLink :to="product.href">
                   <span aria-hidden="true" class="absolute inset-0" />
                   {{ product.name }}
-                </a>
+                </RouterLink>
               </h3>
             </div>
             <p class="text-sm font-medium text-gray-900">{{ product.price }}</p>

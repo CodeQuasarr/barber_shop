@@ -4,7 +4,7 @@
 
 <template>
   <header>
-    <nav class="z-50 w-full fixed">
+    <nav class="z-50 w-full fixed bg-black">
       <div class="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
         <div class="flex flex-wrap items-center justify-between py-2 gap-6 md:py-4 md:gap-0 relative">
           <input aria-hidden="true" type="checkbox" name="toggle_nav" id="toggle_nav" class="hidden peer">
@@ -13,7 +13,7 @@
               <div aria-hidden="true" class="flex space-x-1">
                   <img src="@/assets/images/logo.webp" class="h-20 mr-3 sm:h-9" alt="HairDresser Logo">
               </div>
-              <span class="text-2xl font-bold text-gray-900 dark:text-white">Barber Shop</span>
+              <span class="text-2xl font-bold text-white dark:text-white">HairDresser</span>
             </RouterLink>
 
             <div class="relative flex items-center lg:hidden max-h-10">
