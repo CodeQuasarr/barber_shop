@@ -23,8 +23,8 @@ import aboutImage2 from "@/assets/images/abouts/about2.webp";
         </p>
       </div>
       <div class="my-10">
-        <RouterLink to="#" class="bg-[#d1b096] text-xl px-10 py-5 rounded-sm uppercase font-semibold hover:bg-black hover:text-white">
-          A propos de nous
+        <RouterLink to="/" class="bg-[#d1b096] text-xl px-10 py-5 rounded-sm uppercase font-semibold hover:bg-black hover:text-white">
+            À propos de nous
         </RouterLink>
       </div>
     </div>
