@@ -29,18 +29,18 @@
             <div class="text-white dark:text-gray-300 lg:pr-4 lg:w-auto w-full lg:pt-0">
               <ul class="tracking-wide font-medium lg:text-sm flex-col flex lg:flex-row gap-6 lg:gap-0">
                 <li>
-                  <RouterLink to="/" class="block md:px-4 transition hover:text-[#d1b096]">
+                  <RouterLink to="/" class="text-lg block md:px-4 transition hover:text-[#d1b096]">
                     <span>Accueil</span>
                   </RouterLink>
                 </li>
                 <li>
-                  <RouterLink to="/products" class="block md:px-4 transition hover:text-[#d1b096]">
+                  <RouterLink to="/products" class="text-lg block md:px-4 transition hover:text-[#d1b096]">
                     <span>Boutique</span>
                   </RouterLink>
                 </li>
                 <li>
-                  <RouterLink to="#testimonials" class="block md:px-4 transition hover:text-[#d1b096]">
-                    <span>Contact</span>
+                  <RouterLink to="abouts" class="text-lg block md:px-4 transition hover:text-[#d1b096]">
+                    <span>A propos</span>
                   </RouterLink>
                 </li>
               </ul>
