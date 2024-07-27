@@ -4,7 +4,7 @@
 
 <template>
   <header>
-    <nav class="z-50 w-full fixed bg-black">
+    <nav class="z-50 w-full fixed bg-black py-3">
       <div class="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
         <div class="flex flex-wrap items-center justify-between py-2 gap-6 md:py-4 md:gap-0 relative">
           <input aria-hidden="true" type="checkbox" name="toggle_nav" id="toggle_nav" class="hidden peer">
@@ -18,8 +18,8 @@
 
             <div class="relative flex items-center lg:hidden max-h-10">
               <label role="button" for="toggle_nav" aria-label="humburger" id="hamburger" class="relative  p-6 -mr-6">
-                <div aria-hidden="true" id="line" class="m-auto h-0.5 w-5 rounded bg-sky-900 dark:bg-gray-300 transition duration-300"></div>
-                <div aria-hidden="true" id="line2" class="m-auto mt-2 h-0.5 w-5 rounded bg-sky-900 dark:bg-gray-300 transition duration-300"></div>
+                <div aria-hidden="true" id="line" class="m-auto h-0.5 w-5 rounded bg-white transition duration-300"></div>
+                <div aria-hidden="true" id="line2" class="m-auto mt-2 h-0.5 w-5 rounded bg-white transition duration-300"></div>
               </label>
             </div>
           </div>

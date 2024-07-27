@@ -4,9 +4,11 @@ import CFooter from "@/layouts/visitors/CFooter.vue";
 </script>
 
 <template>
-  <div class="jost">
+  <div class="jost flex flex-col min-h-screen">
       <CHeader/>
-      <RouterView />
+      <div class="flex-1">
+          <RouterView />
+      </div>
       <CFooter/>
   </div>
 </template>
