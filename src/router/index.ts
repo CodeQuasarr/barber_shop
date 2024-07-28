@@ -5,6 +5,8 @@ import PurchaseView from "@/views/PurchaseView.vue";
 import ProductsView from "@/views/ProductsView.vue";
 import AboutView from "@/views/AboutView.vue";
 import Register from "@/views/register.vue";
+import Login from "@/views/Login.vue";
+import DashboardView from "@/views/protected/DashboardView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,10 +17,12 @@ const router = createRouter({
       component: DefautTemplate,
         children: [
           {path: '/register', name: 'REGISTER', component: Register},
+          {path: '/login', name: 'LOGIN', component: Login},
           {path: '/', name: 'HOME', component: HomeView},
           {path: '/products/:id', name: 'PRODUCT_ITEM', component: PurchaseView},
           {path: '/products', name: 'PRODUCT', component: ProductsView},
           {path: '/abouts', name: 'ABOUT', component: AboutView},
+          {path: '/dashboard', name: 'DASHBOARD', component: DashboardView},
         ]
     },
   ],
