@@ -4,6 +4,7 @@ import HomeView from "@/views/HomeView.vue";
 import PurchaseView from "@/views/PurchaseView.vue";
 import ProductsView from "@/views/ProductsView.vue";
 import AboutView from "@/views/AboutView.vue";
+import Register from "@/views/register.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,6 +14,7 @@ const router = createRouter({
       name: 'home',
       component: DefautTemplate,
         children: [
+          {path: '/register', name: 'REGISTER', component: Register},
           {path: '/', name: 'HOME', component: HomeView},
           {path: '/products/:id', name: 'PRODUCT_ITEM', component: PurchaseView},
           {path: '/products', name: 'PRODUCT', component: ProductsView},
