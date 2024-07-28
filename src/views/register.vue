@@ -4,6 +4,7 @@ import { Field, Form, ErrorMessage, type GenericObject } from 'vee-validate';
 import {ref} from "vue";
 import {useRouter} from "vue-router";
 import {emailRule, nameRule, passwordConfirmationRule, passwordRule, phoneRule} from "@/helpers/validationRule";
+import {displayErros} from "@/helpers/displayErros";
 
 const router = useRouter();
 const registerErrors = ref<Record<string, string>>({});

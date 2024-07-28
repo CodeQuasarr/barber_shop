@@ -1,4 +1,4 @@
-const displayErros = (errors: Record<string, string[]>): Record<string, string> => {
+export const displayErros = (errors: Record<string, string[]>): Record<string, string> => {
     const transformedErrors: Record<string, string> = {};
     for (const field in errors) {
         if (errors.hasOwnProperty(field)) {
