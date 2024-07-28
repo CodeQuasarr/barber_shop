@@ -5,16 +5,18 @@ import PurchaseView from "@/views/PurchaseView.vue";
 import ProductsView from "@/views/ProductsView.vue";
 import AboutView from "@/views/AboutView.vue";
 import LoginView from "@/views/auth/LoginView.vue";
+import RegisterView from "@/views/auth/RegisterView.vue";
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHistory(import.meta.env.VITE_BASE_URL),
     routes: [
         {
             path: '/',
-            name: 'home',
+            redirect: '/',
             component: DefautTemplate,
             children: [
-                {path: '/login', name: 'Login', component: LoginView},
+                {path: '/register', name: 'REGISTER', component: RegisterView},
+                {path: '/login', name: 'LOGIN', component: LoginView},
                 {path: '/', name: 'HOME', component: HomeView},
                 {path: '/products/:id', name: 'PRODUCT_ITEM', component: PurchaseView},
                 {path: '/products', name: 'PRODUCT', component: ProductsView},

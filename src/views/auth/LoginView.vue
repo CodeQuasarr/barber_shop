@@ -9,8 +9,21 @@ const emailRule = toTypedSchema(zod.string().nonempty('Field is required').email
 const passwordRule = toTypedSchema(zod.string().nonempty('Field is required'));
 
 
-const onSubmit = (values: GenericObject) => {
-   console.log('values', values);
+const onSubmit = async (values: GenericObject) => {
+    try {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values),
+        });
+
+        console.log('response', response);
+        console.log('response data', response.data);
+    } catch (error) {
+        console.error(error);
+    }
 }
 </script>
 
@@ -69,9 +82,9 @@ const onSubmit = (values: GenericObject) => {
                         </button>
 
                         <p class="max-w-xl px-5 xl:px-0 mt-2 text-sm text-gray-500">
-                            Not a member?
+                            Pas encore de compte ?
                             {{ ' ' }}
-                            <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Start a 14 day free trial</a>
+                            <RouterLink to="/register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Créer votre compte gratuitement  </RouterLink>
                         </p>
                     </div>
                 </Form>
