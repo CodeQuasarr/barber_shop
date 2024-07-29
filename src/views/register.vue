@@ -12,7 +12,6 @@ const registerErrors = ref<Record<string, string>>({});
 
 const handlerRegister = async (values: GenericObject) => {
     try {
-        console.log('Valeurs envoyées:', values); // Ajouter ce journal pour vérifier les données envoyées
         const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/register`, {
             method: 'POST',
             headers: {

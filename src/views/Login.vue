@@ -19,7 +19,6 @@ const onSubmit = async (values: GenericObject) => {
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
             await router.push('/dashboard');
         } else {
             const data = await response.json();

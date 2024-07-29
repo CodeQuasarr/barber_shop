@@ -1,180 +1,11 @@
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
+import {useHaircutStore} from "@/stores/haircut";
+import type {HaircutType} from "@/types/haircutType";
 
 const images = import.meta.glob('@/assets/images/shops/*.webp', {eager: true, as: 'url'});
 
-interface Product {
-    id: number;
-    name: string;
-    description: string;
-    imageSrc: string;
-    imageAlt: string;
-    href: string;
-    price: number;
-    category: string;
-    date?: Date; // Propriété optionnelle
-    sales?: number; // Propriété optionnelle
-    isOnSale?: boolean; // Propriété optionnelle
-}
-const products: Product[] = [
-    {
-        id: 1,
-        name: 'Perruque style tête rouge',
-        description: 'Work from home accessories',
-        imageSrc: images['/src/assets/images/shops/shop-1.webp'],
-        imageAlt: 'Image description for product 1.',
-        href: '/products/1',
-        price: 350,
-        category: 'Accessories',
-        date: new Date('2024-01-01'), // Date d'ajout
-        sales: 20, // Ventes pour le tri
-        isOnSale: false, // Promotion
-    },
-    {
-        id: 2,
-        name: 'Perruque de cheveux blonds',
-        description: 'Journals and note-taking',
-        imageSrc: images['/src/assets/images/shops/shop-2.webp'],
-        imageAlt: 'Image description for product 2.',
-        href: '/products/2',
-        price: 300,
-        category: 'Accessories',
-        date: new Date('2024-02-01'),
-        sales: 30,
-        isOnSale: true,
-    },
-    {
-        id: 3,
-        name: 'Perruque de cheveux noirs',
-        description: 'Work from home accessories',
-        imageSrc: images['/src/assets/images/shops/shop-3.webp'],
-        imageAlt: 'Image description for product 3.',
-        href: '/products/3',
-        price: 400,
-        category: 'Accessories',
-        date: new Date('2024-03-01'),
-        sales: 10,
-        isOnSale: false,
-    },
-    {
-        id: 4,
-        name: 'Perruque de cheveux bruns',
-        description: 'Journals and note-taking',
-        imageSrc: images['/src/assets/images/shops/shop-4.webp'],
-        imageAlt: 'Image description for product 4.',
-        href: '/products/4',
-        price: 250,
-        category: 'Accessories',
-        date: new Date('2024-04-01'),
-        sales: 40,
-        isOnSale: true,
-    },
-    {
-        id: 5,
-        name: 'Perruque de cheveux gris',
-        description: 'Work from home accessories',
-        imageSrc: images['/src/assets/images/shops/shop-5.webp'],
-        imageAlt: 'Image description for product 5.',
-        href: '/products/5',
-        price: 200,
-        category: 'Accessories',
-        date: new Date('2024-05-01'),
-        sales: 50,
-        isOnSale: false,
-    },
-    {
-        id: 6,
-        name: 'Perruque de cheveux blancs',
-        description: 'Journals and note-taking',
-        imageSrc: images['/src/assets/images/shops/shop-6.webp'],
-        imageAlt: 'Image description for product 6.',
-        href: '/products/6',
-        price: 150,
-        category: 'Accessories',
-        date: new Date('2024-06-01'),
-        sales: 60,
-        isOnSale: true,
-    },
-    {
-        id: 7,
-        name: 'Perruque de cheveux roux',
-        description: 'Work from home accessories',
-        imageSrc: images['/src/assets/images/shops/shop-1.webp'],
-        imageAlt: 'Image description for product 7.',
-        href: '/products/7',
-        price: 100,
-        category: 'Accessories',
-        date: new Date('2024-07-01'),
-        sales: 70,
-        isOnSale: false,
-    },
-    {
-        id: 8,
-        name: 'Perruque de cheveux châtains',
-        description: 'Journals and note-taking',
-        imageSrc: images['/src/assets/images/shops/shop-2.webp'],
-        imageAlt: 'Image description for product 8.',
-        href: '/products/8',
-        price: 50,
-        category: 'Accessories',
-        date: new Date('2024-08-01'),
-        sales: 80,
-        isOnSale: true,
-    },
-    {
-        id: 9,
-        name: 'Perruque de cheveux blonds',
-        description: 'Work from home accessories',
-        imageSrc: images['/src/assets/images/shops/shop-3.webp'],
-        imageAlt: 'Image description for product 9.',
-        href: '/products/9',
-        price: 450,
-        category: 'Accessories',
-        date: new Date('2024-09-01'),
-        sales: 90,
-        isOnSale: false,
-    },
-    {
-        id: 10,
-        name: 'Perruque de cheveux noirs',
-        description: 'Journals and note-taking',
-        imageSrc: images['/src/assets/images/shops/shop-4.webp'],
-        imageAlt: 'Image description for product 10.',
-        href: '/products/10',
-        price: 500,
-        category: 'Accessories',
-        date: new Date('2024-10-01'),
-        sales: 100,
-        isOnSale: true,
-    },
-    {
-        id: 11,
-        name: 'Perruque de cheveux bruns',
-        description: 'Work from home accessories',
-        imageSrc: images['/src/assets/images/shops/shop-5.webp'],
-        imageAlt: 'Image description for product 11.',
-        href: '/products/11',
-        price: 550,
-        category: 'Accessories',
-        date: new Date('2024-11-01'),
-        sales: 110,
-        isOnSale: false,
-    },
-    {
-        id: 12,
-        name: 'Perruque de cheveux gris',
-        description: 'Journals and note-taking',
-        imageSrc: images['/src/assets/images/shops/shop-6.webp'],
-        imageAlt: 'Image description for product 12.',
-        href: '/products/12',
-        price: 600,
-        category: 'Accessories',
-        date: new Date('2024-12-01'),
-        sales: 120,
-        isOnSale: true,
-    },
-
-];
+const products = ref<HaircutType[] | null>(null);
 
 const selects = [
     { value: 1, name: 'Prix croissant' },
@@ -184,23 +15,61 @@ const selects = [
     { value: 5, name: 'Promotions' },
 ]
 
+const haircuts = useHaircutStore().getHaircuts;
+
+const getHairCuts = async () => {
+    try {
+        if (haircuts && haircuts.length > 0) {
+            products.value = haircuts.map((product: HaircutType) => ({
+                ...product,
+                imageSrc: images[`/src/assets/images/shops/${product.imageSrc}`]
+            }));
+        } else {
+            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/haircuts`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData);
+            }
+            const haircuts = await response.json();
+            products.value = haircuts.data.map((product: HaircutType) => ({
+                ...product,
+                imageSrc: images[`/src/assets/images/shops/${product.imageSrc}`]
+            }));
+            useHaircutStore().setHaircuts(haircuts.data);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 
 
 const maxPrice = computed(() => {
-    return Math.max(...products.map(product => product.price));
+    if (!products.value || products.value.length === 0) {
+        return 0;
+    }
+    return Math.max(...products.value.map(product => product.price));
 });
+
 const price = ref(maxPrice.value);
 const selectedCategory = ref<string | null>(null);
 const selected = ref<number | null>(null); // Option de tri sélectionnée
+
 const filteredProducts = computed(() => {
-    const filtered = products.filter(product =>
-        product.price <= price.value &&
-        (!selectedCategory.value || product.category === selectedCategory.value)
-    );
+    if (!products.value) {
+        return [];
+    }
+    const filtered = products.value.filter(product => product.price <= price.value && (!selectedCategory.value || product.category === selectedCategory.value));
     return sortProducts(filtered, selected.value); // Appliquer le tri
 });
 
-function sortProducts(products: Product[], sortBy: number | null) {
+function sortProducts(products: HaircutType[], sortBy: number | null) {
     return products.slice().sort((a, b) => {
         switch (sortBy) {
             case 1: // Prix croissant
@@ -219,7 +88,7 @@ function sortProducts(products: Product[], sortBy: number | null) {
 
 const categoryCounts = computed(() => {
     const counts: { [key: string]: number } = {};
-    for (const product of products) {
+    for (const product of products.value || []) {
         if (product.category) {
             if (!counts[product.category]) {
                 counts[product.category] = 0;
@@ -233,6 +102,11 @@ const categoryCounts = computed(() => {
 function selectCategory(category: string | null) {
     selectedCategory.value = category;
 }
+
+onMounted(async () => {
+    await getHairCuts();
+    price.value = maxPrice.value; // Update the price after products are loaded
+});
 </script>
 
 <template>
@@ -259,7 +133,7 @@ function selectCategory(category: string | null) {
                 <div class="mt-4 flex justify-between">
                     <div>
                         <h3 class="text-sm text-gray-700">
-                            <RouterLink :to="product.href">
+                            <RouterLink :to="'products/'+product.id">
                                 <span aria-hidden="true" class="absolute inset-0" />
                                 {{ product.name }}
                             </RouterLink>

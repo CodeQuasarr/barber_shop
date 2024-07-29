@@ -1,80 +1,57 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { StarIcon } from '@heroicons/vue/24/solid'
+import {onMounted, ref} from 'vue'
+import {StarIcon} from '@heroicons/vue/24/solid'
 //@ts-ignore
-import { RadioGroup, RadioGroupOption } from '@headlessui/vue'
+import {RadioGroup, RadioGroupOption} from '@headlessui/vue'
+import type {HaircutDetailType} from "@/types/haircutType";
+import {useRoute} from "vue-router";
 
 
 const images = import.meta.glob('@/assets/images/shops/*.webp', {eager: true, as: 'url'});
-const product = {
-    name: 'Basic Tee 6-Pack',
-    price: '$192',
-    href: '#',
-    breadcrumbs: [
-        { id: 1, name: 'Men', href: '#' },
-        { id: 2, name: 'Clothing', href: '#' },
-    ],
-    images: [
-        {
-            src: images['/src/assets/images/shops/shop-1.webp'],
-            alt: 'Two each of gray, white, and black shirts laying flat.',
-        },
-        {
-            src: images['/src/assets/images/shops/shop-1.webp'],
-            alt: 'Model wearing plain black basic tee.',
-        },
-        {
-            src: images['/src/assets/images/shops/shop-1.webp'],
-            alt: 'Model wearing plain gray basic tee.',
-        },
-        {
-            src: images['/src/assets/images/shops/shop-1.webp'],
-            alt: 'Model wearing plain white basic tee.',
-        },
-    ],
-    colors: [
-        { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-        { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-        { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
-    ],
-    sizes: [
-        { name: 'XXS', inStock: false },
-        { name: 'XS', inStock: true },
-        { name: 'S', inStock: true },
-        { name: 'M', inStock: true },
-    ],
-    description:
-        'Exprimez votre personnalité audacieuse avec notre perruque rose vibrante, un choix parfait pour celles qui souhaitent ajouter une touche de glamour et de fraîcheur à leur look. Fabriquée à partir de cheveux de haute qualité, cette perruque offre non seulement une couleur rose intense et éclatante, mais aussi un confort exceptionnel et une apparence naturelle qui ne passera pas inaperçue.',
-    highlights: [
-        'Facilité d\'Entretien',
-        'Couleur Rose Vibrante',
-        'Cheveux de Haute Qualité',
-        'Confort Optimal',
-    ],
-    details:
-        'Cette perruque rose vibrante est fabriquée en fibres capillaires synthétiques de haute qualité, avec une base ajustable pour un confort optimal, et est résistante à la chaleur pour une coiffure polyvalente et facile à entretenir.',
-}
+const route = useRoute();
+
+const product = ref<HaircutDetailType | null>(null);
+const getProductDetail = async () => {
+    try {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/haircuts/${route.params.id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData);
+        }
+        product.value = await response.json();
+        product.value?.images.map((image: any) => {
+            image.src = images[`/src/assets/images/shops/${image.src}`]
+        });
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 const reviews = { href: '#', average: 4, totalCount: 117 }
 
-const selectedColor = ref(product.colors[0])
-const selectedSize = ref(product.sizes[2])
+const selectedSize = ref(product?.value?.sizes[2])
+
+onMounted(async () => {
+    await getProductDetail();
+    selectedSize.value = product.value?.sizes[2];
+})
 </script>
 
 <template>
     <div class="bg-white py-24">
-        <div class="pt-6">
+        <div v-if="product && Object.entries(product).length" class="pt-6">
             <nav aria-label="Breadcrumb">
                 <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                    <li v-for="breadcrumb in product.breadcrumbs" :key="breadcrumb.id">
+                    <li>
                         <div class="flex items-center">
-                            <a :href="breadcrumb.href" class="mr-2 text-sm font-medium text-gray-900">{{ breadcrumb.name }}</a>
-                            <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
-                                <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                            </svg>
+                            <RouterLink to="/products" class="mr-2 text-sm font-medium text-gray-900"> retour</RouterLink>
                         </div>
-                    </li>
-                    <li class="text-sm">
-                        <a :href="product.href" aria-current="page" class="font-medium text-gray-500 hover:text-gray-600">{{ product.name }}</a>
                     </li>
                 </ol>
             </nav>
@@ -86,7 +63,7 @@ const selectedSize = ref(product.sizes[2])
                 </div>
 
                 <div class="aspect-h-5 aspect-w-4 lg:aspect-h-2 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-                    <img :src="product.images[3].src" :alt="product.images[3].alt" class="h-full w-full object-cover object-center" />
+                    <img :src="product.images[1].src" :alt="product.images[1].alt" class="h-full w-full object-cover object-center" />
                 </div>
             </div>
 
@@ -99,7 +76,7 @@ const selectedSize = ref(product.sizes[2])
                 <!-- Options -->
                 <div class="mt-4 lg:row-span-3 lg:mt-0">
                     <h2 class="sr-only">Product information</h2>
-                    <p class="text-3xl tracking-tight text-gray-900">{{ product.price }}</p>
+                    <p class="text-3xl tracking-tight text-gray-900">{{ product.price }} €</p>
 
                     <!-- Reviews -->
                     <div class="mt-6">
@@ -152,7 +129,7 @@ const selectedSize = ref(product.sizes[2])
                     </div>
 
                     <div class="mt-10">
-                        <h3 class="text-sm font-medium text-gray-900">Highlights</h3>
+                        <h3 class="text-sm font-medium text-gray-900">Points forts</h3>
 
                         <div class="mt-4">
                             <ul role="list" class="list-disc space-y-2 pl-4 text-sm">
