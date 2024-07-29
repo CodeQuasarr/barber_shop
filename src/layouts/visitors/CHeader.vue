@@ -47,7 +47,7 @@ const cart = useHaircutStore();
                   </RouterLink>
                 </li>
                   <li>
-                  <RouterLink to="abouts" class="text-lg block md:px-4 transition hover:text-[#d1b096]">
+                  <RouterLink to="/cart" class="text-lg block md:px-4 transition hover:text-[#d1b096]">
                     <div class="relative">
                         <span class="flex items-center">Panier <ShoppingCartIcon class="size-9 " /></span>
                         <div class="absolute top-1 right-0 mt-[-15px] text-red-500 text-xl font-bold">{{ cart.getShopLength }}</div>

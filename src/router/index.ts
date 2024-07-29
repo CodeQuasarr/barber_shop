@@ -7,6 +7,7 @@ import AboutView from "@/views/AboutView.vue";
 import Register from "@/views/register.vue";
 import Login from "@/views/Login.vue";
 import DashboardView from "@/views/protected/DashboardView.vue";
+import CartView from "@/views/CartView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,6 +24,7 @@ const router = createRouter({
           {path: '/products', name: 'PRODUCT', component: ProductsView},
           {path: '/abouts', name: 'ABOUT', component: AboutView},
           {path: '/dashboard', name: 'DASHBOARD', component: DashboardView},
+          {path: '/cart', name: 'CART', component: CartView},
         ]
     },
   ],
