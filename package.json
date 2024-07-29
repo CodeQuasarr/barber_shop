@@ -23,6 +23,7 @@
   "devDependencies": {
     "@headlessui/vue": "^1.7.22",
     "@heroicons/vue": "^2.1.5",
+    "@stripe/stripe-js": "^4.1.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^20.14.11",

@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { ShoppingCartIcon } from '@heroicons/vue/24/solid'
+import {useHaircutStore} from "@/stores/haircut";
 
+const cart = useHaircutStore();
 </script>
 
 <template>
@@ -41,6 +44,14 @@
                 <li>
                   <RouterLink to="abouts" class="text-lg block md:px-4 transition hover:text-[#d1b096]">
                     <span>A propos</span>
+                  </RouterLink>
+                </li>
+                  <li>
+                  <RouterLink to="abouts" class="text-lg block md:px-4 transition hover:text-[#d1b096]">
+                    <div class="relative">
+                        <span class="flex items-center">Panier <ShoppingCartIcon class="size-9 " /></span>
+                        <div class="absolute top-1 right-0 mt-[-15px] text-red-500 text-xl font-bold">{{ cart.getShopLength }}</div>
+                    </div>
                   </RouterLink>
                 </li>
               </ul>

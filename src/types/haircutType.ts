@@ -25,6 +25,15 @@ export interface HaircutDetailType {
     sizes: SizeType[];
 }
 
+export interface shopType {
+    stripe_product_id: string;
+    sizes: string;
+    price: number;
+    name: string;
+    imageSrc: string;
+    imageAlt: string;
+}
+
 interface ImageType {
     src: string;
     alt: string;

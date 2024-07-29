@@ -5,6 +5,7 @@ import {StarIcon} from '@heroicons/vue/24/solid'
 import {RadioGroup, RadioGroupOption} from '@headlessui/vue'
 import type {HaircutDetailType} from "@/types/haircutType";
 import {useRoute} from "vue-router";
+import {useHaircutStore} from "@/stores/haircut";
 
 
 const images = import.meta.glob('@/assets/images/shops/*.webp', {eager: true, as: 'url'});
@@ -36,6 +37,20 @@ const getProductDetail = async () => {
 const reviews = { href: '#', average: 4, totalCount: 117 }
 
 const selectedSize = ref(product?.value?.sizes[2])
+
+const addToCart = () => {
+    if (product.value && selectedSize.value) {
+        const data = {
+            stripe_product_id: product.value.stripe_product_id,
+            sizes: selectedSize.value.name,
+            price: product.value.price,
+            name: product.value.name,
+            imageSrc: product.value.images[0].src,
+            imageAlt: product.value.images[0].alt,
+        }
+        useHaircutStore().setShop(data);
+    }
+}
 
 onMounted(async () => {
     await getProductDetail();
@@ -90,7 +105,7 @@ onMounted(async () => {
                         </div>
                     </div>
 
-                    <form class="mt-10">
+                    <div class="mt-10">
 
                         <!-- Sizes -->
                         <div class="mt-10">
@@ -105,17 +120,22 @@ onMounted(async () => {
                                             <span>{{ size.name }}</span>
                                             <span v-if="size.inStock" :class="[active ? 'border' : 'border-2', checked ? 'border-indigo-500' : 'border-transparent', 'pointer-events-none absolute -inset-px rounded-md']" aria-hidden="true" />
                                             <span v-else aria-hidden="true" class="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
-                        <svg class="absolute inset-0 h-full w-full stroke-2 text-gray-200" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
-                          <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
-                        </svg>
-                      </span>
+                                                <svg class="absolute inset-0 h-full w-full stroke-2 text-gray-200"
+                                                     preserveAspectRatio="none" stroke="currentColor"
+                                                     viewBox="0 0 100 100">
+                                                  <line vector-effect="non-scaling-stroke" x1="0" x2="100" y1="100"
+                                                        y2="0"/>
+                                                </svg>
+                                            </span>
                                         </div>
                                     </RadioGroupOption>
                                 </RadioGroup>
                             </fieldset>
                         </div>
-                        <button type="submit" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-[#d1b096] px-8 py-3 text-base font-medium hover:bg-black hover:text-white uppercase">Add to bag</button>
-                    </form>
+                        <button @click="addToCart" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-[#d1b096] px-8 py-3 text-base font-medium hover:bg-black hover:text-white uppercase">
+                            Ajouter au panier
+                        </button>
+                    </div>
                 </div>
 
                 <div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
