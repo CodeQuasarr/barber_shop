@@ -1,15 +1,24 @@
 import {defineStore} from "pinia";
+import type {HaircutType, shopType} from "@/types/haircutType";
+import type {CartType} from "@/types/cartType";
 
 
 export const useUserStore = defineStore('user', {
-    state: () => {
-        return { count: 0 }
-    },
-        // could also be defined as
-        // state: () => ({ count: 0 })
-        actions: {
-        increment() {
-            this.count++
+    state: () => ({
+        access_token: null as string | null,
+    }),
+
+    actions: {
+        setAccessToken(token: string) {
+            this.access_token = token;
         },
+
+        resetAccessToken() {
+            this.access_token = null;
+        },
+    },
+
+    getters: {
+
     },
 });

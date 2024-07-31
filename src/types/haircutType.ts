@@ -1,6 +1,6 @@
 
 export interface HaircutType {
-    id?: string;
+    id: number;
     name: string;
     description?: string;
     price: number;
@@ -30,6 +30,7 @@ export interface shopType {
     sizes: string;
     price: number;
     name: string;
+    quantity: number;
     imageSrc: string;
     imageAlt: string;
 }

@@ -3,6 +3,7 @@ import {Field, Form, ErrorMessage, type GenericObject} from 'vee-validate';
 import {emailRule, passwordRule} from "@/helpers/validationRule";
 import {ref} from "vue";
 import {useRouter} from "vue-router";
+import {useUserStore} from "@/stores/user";
 
 const errorMessage = ref<string | null>(null);
 const router = useRouter();
@@ -19,6 +20,8 @@ const onSubmit = async (values: GenericObject) => {
 
         if (response.ok) {
             const data = await response.json();
+            console.log(data);
+            // useUserStore().setAccessToken(data.access_token);
             await router.push('/dashboard');
         } else {
             const data = await response.json();

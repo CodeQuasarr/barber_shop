@@ -21,6 +21,10 @@ export const useHaircutStore = defineStore('haircut', {
             this.shop.push(shop);
         },
 
+        updateShop(shop: shopType[]) {
+            this.shop = shop;
+        },
+
         resetShop() {
             this.shop = null;
         },
