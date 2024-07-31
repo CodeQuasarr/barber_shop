@@ -7,6 +7,8 @@ import {loadStripe, type Stripe, type StripeElements} from "@stripe/stripe-js";
 import PageTitleBanner from "@/components/views/PageTitleBanner.vue";
 import {useCartStore} from "@/stores/cart";
 import type {CartType} from "@/types/cartType";
+import {useUserStore} from "@/stores/user";
+import {useRouter} from "vue-router";
 
 const images = import.meta.glob('@/assets/images/shops/*.webp', {eager: true, as: 'url'});
 const cart = useCartStore();
@@ -18,6 +20,7 @@ const stripe = ref<Stripe | null>(null);
 const elements = ref<StripeElements | null>(null);
 const error = ref<string | null>(null);
 const clientSecret = ref<string | null>(null);
+const router = useRouter();
 
 const reorganizeCart = () => {
   if (cart.getItemsLength) {
@@ -51,6 +54,12 @@ const totalSum = computed(() => {
 });
 
 const paymentCallback = async () => {
+
+  if(!useUserStore().isAuthenticated) {
+    await router.push({name: '/login'});
+    return;
+  }
+
   stripe.value = await stripePromise;
   elements.value = stripe.value?.elements() as StripeElements;
   const ids = cart.getItems?.map((item) => item.haircut_id);
@@ -62,7 +71,7 @@ const paymentCallback = async () => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer 2|PWFCGFxw1Cosq2kbYRG9pgzWiBXQ31Lff2HYwIrW86d4bead`,
+      'Authorization': `Bearer ${useUserStore().getToken}`,
     },
     body: JSON.stringify({ids}),
   });
