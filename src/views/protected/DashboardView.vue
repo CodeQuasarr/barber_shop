@@ -50,6 +50,28 @@ const filteredReservations = computed(() => {
 const filterReservations = () => {
     // This method is triggered when the filter changes
 };
+
+
+const tester = async () => {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/orders/${1}/invoice`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer 2|CA4usmhyRNjsCMtdDxZtBZKrOvuNJvd4QIHI2GPe1dc2523e`,
+        },
+    });
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+
+    link.href = url;
+    link.setAttribute('download', `invoice_${1}.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    return;
+};
 </script>
 
 <template>
