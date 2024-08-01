@@ -2,7 +2,6 @@
 
 import Private from "@/layouts/Private.vue";
 import {computed, ref} from "vue";
-import {useUserStore} from "../../stores/user";
 
 const reservations = ref([
     { id: 1, date: '2023-10-01', time: '10:00', description: 'Réservation 1', isUpcoming: true },
@@ -78,8 +77,7 @@ const tester = async () => {
     <div>
         <Private>
             <div class="py-24">
-              dfgdfg
-              {{ useUserStore().getToken }}
+                <button @click="tester">tester</button>
                 <h1 class="text-4xl font-semibold text-gray-800">Dashboard</h1>
                 <p class="mt-4 text-gray-600">Welcome to your dashboard</p>
 
