@@ -19,6 +19,13 @@ export const useUserStore = defineStore('user', {
     },
 
     getters: {
+        getToken(): string | null {
+            return this.access_token;
+        },
 
+        isAuthenticated(): boolean {
+            return this.access_token !== null && this.access_token.trim() !== '';
+        }
     },
+    persist: true,
 });

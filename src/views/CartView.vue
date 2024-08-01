@@ -1,10 +1,14 @@
 <script lang="ts" setup>
+
+import {useHaircutStore} from "@/stores/haircut";
 import {computed, onMounted, ref} from "vue";
+import type {shopType} from "@/types/haircutType";
 import {loadStripe, type Stripe, type StripeElements} from "@stripe/stripe-js";
 import PageTitleBanner from "@/components/views/PageTitleBanner.vue";
 import {useCartStore} from "@/stores/cart";
 import type {CartType} from "@/types/cartType";
-import router from "@/router";
+import {useUserStore} from "@/stores/user";
+import {useRouter} from "vue-router";
 
 const images = import.meta.glob('@/assets/images/shops/*.webp', {eager: true, as: 'url'});
 const cart = useCartStore();
@@ -16,6 +20,7 @@ const stripe = ref<Stripe | null>(null);
 const elements = ref<StripeElements | null>(null);
 const error = ref<string | null>(null);
 const clientSecret = ref<string | null>(null);
+const router = useRouter();
 
 const reorganizeCart = () => {
   if (cart.getItemsLength) {
@@ -49,6 +54,12 @@ const totalSum = computed(() => {
 });
 
 const paymentCallback = async () => {
+
+  if(!useUserStore().isAuthenticated) {
+    await router.push({name: '/login'});
+    return;
+  }
+
   stripe.value = await stripePromise;
   elements.value = stripe.value?.elements() as StripeElements;
   const ids = cart.getItems?.map((item) => item.haircut_id);
@@ -60,7 +71,7 @@ const paymentCallback = async () => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer 2|CA4usmhyRNjsCMtdDxZtBZKrOvuNJvd4QIHI2GPe1dc2523e`,
+      'Authorization': `Bearer ${useUserStore().getToken}`,
     },
     body: JSON.stringify({ids}),
   });
@@ -88,25 +99,6 @@ const checkout = async () => {
     } else {
         if (result.paymentIntent?.status === 'succeeded') {
             error.value = 'Payment successful!';
-
-            const haircutIds = cart.getItems?.map((item) => item.haircut_id);
-            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/orders`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer 2|CA4usmhyRNjsCMtdDxZtBZKrOvuNJvd4QIHI2GPe1dc2523e`,
-                },
-                body: JSON.stringify({haircutIds}),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                await router.push('/dashboard');
-                return;
-            } else {
-                console.error(data);
-            }
         }
     }
 };

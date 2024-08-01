@@ -19,9 +19,9 @@ const onSubmit = async (values: GenericObject) => {
         });
 
         if (response.ok) {
-            const data = await response.json();
-            console.log(data);
-            // useUserStore().setAccessToken(data.access_token);
+            const user = await response.json();
+            console.log(user.data);
+            useUserStore().setAccessToken(user.data.token);
             await router.push('/dashboard');
         } else {
             const data = await response.json();
