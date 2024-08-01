@@ -69,6 +69,7 @@ const tester = async () => {
     document.body.appendChild(link);
     link.click();
     link.remove();
+    return;
 };
 </script>
 
