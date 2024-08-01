@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue'
 import {StarIcon} from '@heroicons/vue/24/solid'
-//@ts-ignore
-import {RadioGroup, RadioGroupOption} from '@headlessui/vue'
-import type {HaircutDetailType, HaircutType} from "@/types/haircutType";
+import type {HaircutDetailType} from "@/types/haircutType";
 import {useRoute} from "vue-router";
-import {useHaircutStore} from "@/stores/haircut";
 import {useCartStore} from "@/stores/cart";
-import PageTitleBanner from "@/components/views/PageTitleBanner.vue";
+import BtnLoading from "@/components/BtnLoading.vue";
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 
 const images = import.meta.glob('@/assets/images/shops/*.webp', {eager: true, as: 'url'});
@@ -39,18 +38,32 @@ const getProductDetail = async () => {
 const reviews = {href: '#', average: 4, totalCount: 117}
 
 const selectedSize = ref(product?.value?.sizes[2])
+const loadBtn = ref<boolean>(false)
 
 const addToCart = () => {
-  if (product.value && selectedSize.value) {
-    const item = {
-      haircut_id: product.value.id,
-      price: product.value.price,
-      name: product.value.name,
-      imageSrc: product.value.images[0].src,
-      imageAlt: product.value.images[0].alt,
-      quantity: 1,
-    };
-    useCartStore().addItem(item);
+  try {
+    loadBtn.value = true
+    if (product.value && selectedSize.value) {
+      const item = {
+        haircut_id: product.value.id,
+        price: product.value.price,
+        name: product.value.name,
+        imageSrc: product.value.images[0].src,
+        imageAlt: product.value.images[0].alt,
+        quantity: 1,
+      };
+      useCartStore().addItem(item);
+      toast.success('Produit ajouté au panier', {
+        position: 'top-center',
+      });
+    }
+  } catch (error) {
+    toast.error('Erreur lors de l\'ajout au panier', {
+      position: 'top-center',
+    });
+    console.error(error);
+  } finally {
+    loadBtn.value = false
   }
 }
 
@@ -120,11 +133,15 @@ onMounted(async () => {
               </div>
 
               <p class="mt-4">
-                Découvrez notre perruque de cheveux noirs, alliant confort optimal et cheveux de haute qualité. Profitez d'une facilité d'entretien sans pareil et d'une allure élégante qui s'adapte à toutes vos envies.
+                Découvrez notre perruque de cheveux noirs, alliant confort optimal et cheveux de haute qualité. Profitez
+                d'une facilité d'entretien sans pareil et d'une allure élégante qui s'adapte à toutes vos envies.
               </p>
             </div>
-            <button @click="addToCart"
-                    class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-[#d1b096] px-8 py-3 text-base font-medium hover:bg-black hover:text-white uppercase">
+            <button
+                @click="addToCart"
+                class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-[#d1b096] px-8 py-3 text-base font-medium hover:bg-black hover:text-white uppercase"
+            >
+              <BtnLoading v-if="loadBtn"/>
               Ajouter au panier
             </button>
           </div>

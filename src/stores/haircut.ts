@@ -46,7 +46,6 @@ export const useHaircutStore = defineStore('haircut', {
         getShopLength(): number {
             return this.shop ? this.shop.length : 0;
         }
-
-
     },
+    persist: true,
 });

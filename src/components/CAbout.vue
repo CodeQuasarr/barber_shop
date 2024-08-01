@@ -2,6 +2,11 @@
 
 import aboutImage1 from "@/assets/images/abouts/about1.webp";
 import aboutImage2 from "@/assets/images/abouts/about2.webp";
+
+const props = defineProps({
+  link: String,
+  title: String,
+});
 </script>
 
 <template>
@@ -22,9 +27,9 @@ import aboutImage2 from "@/assets/images/abouts/about2.webp";
           tempor arcuam aliquet metus non neque vitae.
         </p>
       </div>
-      <div class="my-10">
-        <RouterLink to="/" class="bg-[#d1b096] text-xl px-10 py-5 rounded-sm uppercase font-semibold hover:bg-black hover:text-white">
-            À propos de nous
+      <div class="my-10" v-if="props.link?.trim()">
+        <RouterLink :to="props.link" class="bg-[#d1b096] text-xl px-10 py-5 rounded-sm uppercase font-semibold hover:bg-black hover:text-white">
+            {{ props.title }}
         </RouterLink>
       </div>
     </div>
