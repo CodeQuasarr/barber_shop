@@ -9,7 +9,7 @@ import CAbout from "@/components/CAbout.vue";
   <div>
       <CBanner/>
 
-      <CAbout/>
+      <CAbout link="/abouts" title="À propos de nous"/>
 
       <!--    <CSelection />-->
 

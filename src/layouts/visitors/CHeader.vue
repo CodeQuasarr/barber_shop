@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ShoppingCartIcon } from '@heroicons/vue/24/solid'
 import {useCartStore} from "@/stores/cart";
+import {useUserStore} from "@/stores/user";
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 
 </script>
 
@@ -57,7 +59,29 @@ import {useCartStore} from "@/stores/cart";
             </div>
 
             <div class="mt-12 lg:mt-0">
-              <RouterLink to="/login" class="relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0  before:bg-[#d1b096] before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max">
+              <Menu v-if="useUserStore().isAuthenticated" as="div" class="relative ml-3">
+                <div>
+                  <MenuButton class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <span class="absolute -inset-1.5" />
+                    <span class="sr-only">Open user menu</span>
+                    <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                  </MenuButton>
+                </div>
+                <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+                  <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <MenuItem v-slot="{ active }">
+                      <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Mon Profile</a>
+                    </MenuItem>
+                    <MenuItem v-slot="{ active }">
+                      <a href="/dashboard" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Paramettre</a>
+                    </MenuItem>
+                    <MenuItem v-slot="{ active }">
+                      <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Se déconnecter</a>
+                    </MenuItem>
+                  </MenuItems>
+                </transition>
+              </Menu>
+              <RouterLink v-else to="/login" class="relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0  before:bg-[#d1b096] before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max">
                 <span class="relative text-sm font-semibold text-black">Se connecter</span>
               </RouterLink>
             </div>
