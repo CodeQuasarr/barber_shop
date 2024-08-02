@@ -28,6 +28,7 @@ const reorganizeCart = () => {
             });
             // canPay.value = true;
         }
+
     }
 }
 
