@@ -20,7 +20,6 @@ const onSubmit = async (values: GenericObject) => {
 
     if (response.ok) {
       const user = await response.json();
-      console.log(user.data);
       userStore.setAccessToken(user.data.token);
       userStore.setName(user.data.name);
       await router.push('/dashboard');

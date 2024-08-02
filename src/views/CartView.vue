@@ -83,14 +83,10 @@ const initPayment = async () => {
     });
 
     const data = await response.json();
-    console.log('data0', data);
     clientSecret.value = data.client_secret;
 };
 
 const checkout = async () => {
-    console.log('stripe', stripe.value);
-    console.log('elements', elements.value);
-    console.log('clientSecret', clientSecret.value);
     if (!stripe.value || !elements.value || !clientSecret.value) return;
 
     const cardElement = elements.value.getElement('card');

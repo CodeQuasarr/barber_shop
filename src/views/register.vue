@@ -9,7 +9,10 @@ import {displayErros} from "@/helpers/displayErros";
 const router = useRouter();
 const registerErrors = ref<Record<string, string>>({});
 
-
+/**
+ * Handle the register form
+ * @param values
+ */
 const handlerRegister = async (values: GenericObject) => {
     try {
         const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/register`, {
@@ -30,7 +33,7 @@ const handlerRegister = async (values: GenericObject) => {
 
         const responseData = await response.json();
     } catch (error: any) {
-        console.log("Erreur lors de la requête:", error);
+        console.error("Erreur lors de la requête:", error);
     }
 }
 </script>

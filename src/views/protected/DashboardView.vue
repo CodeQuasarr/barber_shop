@@ -4,24 +4,19 @@ import Private from "@/layouts/Private.vue";
 import {useUserStore} from "@/stores/user";
 import {onMounted, ref} from "vue";
 import type {OrderType} from "@/types/orderType";
+import fetchApiWithToken from "@/https/fetchApiWithToken";
 
 const orders = ref<OrderType[] | null>(null);
+const loading = ref<boolean>(false);
 
 const getOrders = async () => {
-    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/orders`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${useUserStore().getToken}`,
-        },
-    });
-
-    const all = await response.json();
-    if (!response.ok) {
-      throw new Error(all.message);
-
-    } else {
-      orders.value = all.data;
+    try {
+        loading.value = true;
+        orders.value = await fetchApiWithToken<OrderType[]>('orders');
+    } catch (e) {
+        console.error(e);
+    } finally {
+        loading.value = false;
     }
 };
 
@@ -63,7 +58,7 @@ onMounted(async () => {
 
 <template>
     <div>
-        <Private>
+        <Private :loading="loading">
             <div class="py-24">
                 <h1 class="text-4xl font-semibold text-gray-800">Mes factures</h1>
                 <p class="mt-4 text-gray-600">Liste de mes factures </p>
