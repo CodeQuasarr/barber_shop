@@ -62,6 +62,7 @@ const onSubmit = async (values: GenericObject) => {
             </div>
             <div class="mt-2">
               <Field
+                  model-value="souzasilva@test.eu"
                   :rules="emailRule"
                   id="email"
                   name="email"
@@ -79,6 +80,7 @@ const onSubmit = async (values: GenericObject) => {
             </div>
             <div class="mt-2">
               <Field
+                  model-value="password"
                   :rules="passwordRule"
                   id="password"
                   name="password"

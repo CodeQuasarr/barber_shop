@@ -3,7 +3,23 @@ import { ShoppingCartIcon } from '@heroicons/vue/24/solid'
 import {useCartStore} from "@/stores/cart";
 import {useUserStore} from "@/stores/user";
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import {useRouter} from "vue-router";
 
+const router = useRouter()
+const logout = async () => {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/logout`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${useUserStore().getToken}`,
+        },
+    });
+
+    if (response.ok) {
+        useUserStore().logout();
+        await router.push('/login');
+    }
+}
 </script>
 
 <template>
@@ -69,14 +85,14 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
                 </div>
                 <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                   <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+<!--                    <MenuItem v-slot="{ active }">-->
+<!--                      <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Mon Profile</a>-->
+<!--                    </MenuItem>-->
                     <MenuItem v-slot="{ active }">
-                      <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Mon Profile</a>
+                      <a href="/dashboard" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">facture</a>
                     </MenuItem>
                     <MenuItem v-slot="{ active }">
-                      <a href="/dashboard" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Paramettre</a>
-                    </MenuItem>
-                    <MenuItem v-slot="{ active }">
-                      <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Se déconnecter</a>
+                      <button @click="logout" :class="['w-full block px-4 py-2 text-sm text-gray-50 bg-red-600']">Se déconnecter</button>
                     </MenuItem>
                   </MenuItems>
                 </transition>

@@ -4,7 +4,6 @@
 
 <template>
     <div class="py-24 container mx-auto">
-        fdggfdgdfgdfgdfgd
         <slot />
     </div>
 </template>

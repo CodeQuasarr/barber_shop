@@ -18,9 +18,10 @@ export const useUserStore = defineStore('user', {
             this.access_token = token;
         },
 
-        resetUser() {
+        logout() {
             this.access_token = null;
             this.name = null;
+            localStorage.clear();
         },
     },
 
